@@ -31,12 +31,12 @@ class Controller():
     """Manages/controls one or more elevators that work together, assuming they both can access the same floors"""
 
     def __init__(self, elevators=0, floors=0, use_gui=True):
-        self.floors = floors
+        
         self.elevators = list()
         
         elevators = int(input("Enter number of elevators you need for the system"))
         floors= int(input("Enter the maximum number of floors in the building"))
-        
+        self.floors = floors
         for x in range(elevators):
             self.elevators.append(Elevator(self.floors, name="Elevator " + str(x+1)))
         self.called = dict()  # {1: {"up": False, "down": False}, 2: {"up": False, "down": False}}
