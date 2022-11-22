@@ -56,7 +56,7 @@ class Elevator(object):
             self.do(2, "Closing door")
             self.door_open = False
 
-    def go_to_floor(self, target_floor,state,usid):
+    def go_to_floor(self, target_floor,state,users):
         """Moves the elevator from its current floor to target_floor"""
         print("the state is {}".format(state))
         if self.door_open:  
@@ -78,13 +78,19 @@ class Elevator(object):
                 if (self.current_floor == target_floor):
                     self.do(3, "Stopping elevator {} at floor = {}".format(self.name,self.current_floor))
                     if state=="drop":
-
-                        print("Passenger {} is being dropped at floor = {} by elevator = {}".format(usid,target_floor,self.name))
+                        for usid in users:
+                            print("                                   ")
+                            print("Elevator {} dropping passenger {} at floor = {}".format(self.name,usid,target_floor))
+                            print("                                   ")
+                            print("Passenger {} is being dropped at floor = {} by elevator = {}".format(usid,target_floor,self.name))
                     else:
-
-                        print("Passenger {} is picked from at floor = {} by elevator = {}".format(usid,target_floor,self.name))
+                        for usid in users:
+                            print("                                   ")
+                            print("Elevator {} picking up passenger {} at floor = {}".format(self.name,usid,target_floor))
+                            print("                                   ")
+                            print("Passenger {} is picked from at floor = {} by elevator = {}".format(usid,target_floor,self.name))
                 else:
-                    target_floor,usid = self.next_floor_up()
+                    target_floor,users = self.next_floor_up()
 
             # Going down!
             elif (self.current_floor > target_floor):
@@ -100,18 +106,20 @@ class Elevator(object):
                     self.do(3, "Stopping elevator {} at floor = {}".format(self.name,self.current_floor))
 
                     if state=="drop":
-                        print("                                   ")
-                        print("Elevator {} dropping passenger {} at floor = {}".format(self.name,usid,target_floor))
-                        print("                                   ")
-                        print("Passenger {} is being dropped at floor = {} by elevator = {}".format(usid,target_floor,self.name))
+                        for usid in users:
+                            print("                                   ")
+                            print("Elevator {} dropping passenger {} at floor = {}".format(self.name,usid,target_floor))
+                            print("                                   ")
+                            print("Passenger {} is being dropped at floor = {} by elevator = {}".format(usid,target_floor,self.name))
                     else:
-                        print("                                   ")
-                        print("Elevator {} picking up passenger {} at floor = {}".format(self.name,usid,target_floor))
-                        print("                                   ")
-                        print("Passenger {} is picked from at floor = {} by elevator = {}".format(usid,target_floor,self.name))
+                        for usid in users:
+                            print("                                   ")
+                            print("Elevator {} picking up passenger {} at floor = {}".format(self.name,usid,target_floor))
+                            print("                                   ")
+                            print("Passenger {} is picked from at floor = {} by elevator = {}".format(usid,target_floor,self.name))
 
                 else:
-                    target_floor,usid = self.next_floor_down()
+                    target_floor,users = self.next_floor_down()
 
         self.go_to[target_floor] = False
 
@@ -133,16 +141,16 @@ class Elevator(object):
             while True:
            
                 if self.going_up:
-                    next_floor,user = self.next_floor_up()
+                    next_floor,users = self.next_floor_up()
                 else:
-                    next_floor,user = self.next_floor_down()
+                    next_floor,users = self.next_floor_down()
 
             # Check floors in the opposite direction if no floor was received
                 if next_floor is None:
                     if self.going_up:
-                        next_floor,user = self.next_floor_down()
+                        next_floor,users = self.next_floor_down()
                     else:
-                        next_floor,user = self.next_floor_up()
+                        next_floor,users = self.next_floor_up()
                 
                 if next_floor is None:
                    
@@ -155,7 +163,7 @@ class Elevator(object):
                         return
                 else:
                     self.busy = True
-                    self.go_to_floor(next_floor,state,user)
+                    self.go_to_floor(next_floor,state,users)
                     if self.current_floor == self.top_floor:
                         self.going_up = False
                     elif self.current_floor == 1:
