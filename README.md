@@ -1,4 +1,5 @@
 # elevator_system
+git clone https://github.com/kartikrathee95/elevator_system.git
 1. pip install virtualenv
 2. virtualenv env_name
 3. env_name\Scripts\activate
