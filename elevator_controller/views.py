@@ -53,20 +53,29 @@ class Controller():
         floor_s = floor[0]
         floor_d = floor[1]
         elevators = sorted(self.elevators, key=lambda e: abs(e.current_floor - floor_s))
-
+        
         for elevator in elevators:
+            
             if elevator.busy:
                 if  elevator.going_up and (elevator.current_floor < floor_s): 
-                    elevator.go_to[floor_s] = user
-                    elevator.go_to_drop[floor_d] = user
+                    if elevator.go_to_drop[floor_d] == False:
+                        elevator.go_to_drop[floor_d] = []   
+                    if elevator.go_to[floor_s]==False:
+                        elevator.go_to[floor_s] = []
+                    elevator.go_to[floor_s].append(user)
+                    elevator.go_to_drop[floor_d].append(user)
                     elevator.going_up = True
                     self.called[floor_s]["up"] = False
                     return elevator
             
                 # called to go down and elevator going down from higher floor
                 elif not elevator.going_up and (elevator.current_floor > floor_s):
-                    elevator.go_to[floor_s] = user
-                    elevator.go_to_drop[floor_d] = user
+                    if elevator.go_to_drop[floor_d] == False:
+                        elevator.go_to_drop[floor_d] = []   
+                    if elevator.go_to[floor_s]==False:
+                        elevator.go_to[floor_s] = []
+                    elevator.go_to[floor_s].append(user)
+                    elevator.go_to_drop[floor_d].append(user)
                     elevator.going_up = False
                     self.called[floor_s]["down"] = False
                     return elevator
@@ -74,8 +83,12 @@ class Controller():
             else:
             
                 elevator.busy = True
-                elevator.go_to[floor_s] = user
-                elevator.go_to_drop[floor_d] = user
+                if elevator.go_to_drop[floor_d] == False:
+                    elevator.go_to_drop[floor_d] = []   
+                if elevator.go_to[floor_s]==False:
+                    elevator.go_to[floor_s] = []
+                elevator.go_to[floor_s].append(user)
+                elevator.go_to_drop[floor_d].append(user)
                 direction  =None
                 if elevator.current_floor<floor_s:
                     elevator.going_up = True
@@ -96,7 +109,7 @@ class Controller():
         st_time = 0
         prev_time = time.time()
         next_time = time.time()
-        df = pd.read_csv('testcases2.csv')
+        df = pd.read_csv('testcases.csv')
         while(1):
           
             for index,row in df.iterrows():
@@ -138,6 +151,7 @@ class Test():
     def __init__(self):
         header = ['id', 'arrival_time', 'arrival_floor', 'destination_floor']
         print("Creating testcases_")
+        
         n = int(input("Please enter total number of passengers using elevators in a day"))
         floors = int(input("Please enter maximum number of floors in the building"))
         with open('testcases.csv', 'w', encoding='UTF8') as f:
