@@ -17,7 +17,7 @@ In next step, we can run the system on multiple production servers and the scrip
 The further integration to productioon server will work like this on AWS:
 # DEPLOY BACKEND
 
-1. docker build -t elevator:latest --build-arg YOUR_ENV=testinhg .
+1. docker build -t elevator:latest --build-arg YOUR_ENV=testing .
 3. aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 602037364990.dkr.ecr.us-east-1.amazonaws.com
 4. docker tag elevator:latest 602037364990.dkr.ecr.us-east-1.amazonaws.com/ECR_RepoName:latest
 5.docker push 602037364990.dkr.ecr.us-east-1.amazonaws.com/ECR_RepoName:latest
