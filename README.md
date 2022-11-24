@@ -15,3 +15,18 @@ git clone https://github.com/kartikrathee95/elevator_system.git
 In next step, we can run the system on multiple production servers and the scripts now are working in sync with the business logic:
 
 The further integration to productioon server will work like this on AWS:
+# DEPLOY BACKEND
+
+1. docker build -t elevator:latest --build-arg YOUR_ENV=testinhg .
+3. aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 602037364990.dkr.ecr.us-east-1.amazonaws.com
+4. docker tag elevator:latest 602037364990.dkr.ecr.us-east-1.amazonaws.com/ECR_RepoName:latest
+5.docker push 602037364990.dkr.ecr.us-east-1.amazonaws.com/ECR_RepoName:latest
+6. aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 602037364990.dkr.ecr.us-east-1.amazonaws.com
+7. docker pull 602037364990.dkr.ecr.us-east-1.amazonaws.com/ECR_RepoName
+8. docker run -p 8003:8000 --restart always -e ENV_FOR_DYNACONF=testing 602037364990.dkr.ecr.us-east-1.amazonaws.com/ECR_RepoName:latest
+
+Now elevators can be turned ON at 08:00 hrs in the morning and stopped when the business day ends.
+# UPDATE UI
+
+1. python tkinter code flow understanding will allow us to make system even more functional on user end.
+2. Take PR and deploy on testing_elevator.com, ip: localhost:8000
