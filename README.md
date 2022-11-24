@@ -11,3 +11,7 @@ git clone https://github.com/kartikrathee95/elevator_system.git
 9. Click on 3rd button, go to terminal and input : No_of_elevators and Maximum_floors_in_building
 10. Click Enter.
 11. System starts and UI will start once all testcases are fed to the system.
+
+In next step, we can run the system on multiple production servers and the scripts now are working in sync with the business logic:
+
+The further integration to productioon server will work like this on AWS:
