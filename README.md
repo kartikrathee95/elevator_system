@@ -29,4 +29,4 @@ Now elevators can be turned ON at 08:00 hrs in the morning and stopped when the 
 # UPDATE UI
 
 1. python tkinter code flow understanding will allow us to make system even more functional on user end.
-2. Take PR and deploy on testing_elevator.com, ip: localhost:8000
+2. Take PR and deploy , testing servers ip = localhost:8000
